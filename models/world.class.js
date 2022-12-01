@@ -7,11 +7,26 @@ class World{
     new Pufferfish(),
 ];
 
+ctx;
 
+constructor(canvas){
+    this.ctx = canvas.getContext("2d");
+    this.draw();
+}
 
 
 draw(){
+    this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.height, this.character.width);
 
+
+    // draw() wird immer wieder aufgerufen
+
+
+    //weil man hier eine funktion aufruft kennt dise this nicht, weswegen man diese mit self definieren muss
+    let self = this;
+    requestAnimationFrame(function(){
+        self.draw();
+    });
 }
 
 

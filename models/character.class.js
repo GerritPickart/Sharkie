@@ -1,5 +1,7 @@
 class Character extends MoveableObject {
   
+    height = 250;
+    width = 250;
 
 
     constructor(){
@@ -7,8 +9,6 @@ class Character extends MoveableObject {
 
         this.x = 0;
 
-        this.height = 250;
-        this.width = 250;
     }
 
 

@@ -1,6 +1,13 @@
 class World {
   character = new Character();
   enemies = [new Pufferfish(), new Pufferfish(), new Pufferfish()];
+  backgroundObjects = [
+    new BackgroundObject("img/3. Background/Layers/5. Water/L1.png", 0),
+    new BackgroundObject("img/3. Background/Layers/3.Fondo 1/L2.png", 0),
+    new BackgroundObject("img/3. Background/Layers/4.Fondo 2/L1.png", 0),
+    new BackgroundObject("img/3. Background/Layers/2. Floor/D2.png", 0),
+  ];
+
   canvas;
   ctx;
 
@@ -13,32 +20,25 @@ class World {
   // hier wird der character gezeichnet
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);   // hier wird das cancas mit clearRect gesäubert damit der Character nicht an mehreren Stellen erscheint
-    this.ctx.drawImage(
-      this.character.img,
-      this.character.x,
-      this.character.y,
-      this.character.height,
-      this.character.width
-    );
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // hier wird das cancas mit clearRect gesäubert damit der Character nicht an mehreren Stellen erscheint
 
+    this.addObjectsToMap(this.backgroundObjects);
+    this.addObjectsToMap(this.enemies);
+    this.addToMap(this.character);
 
-    // hier werden die pufferfishe gemalt
-    this.enemies.forEach((pufferfish) => {
-      this.ctx.drawImage(
-        pufferfish.img,
-        pufferfish.x,
-        pufferfish.y,
-        pufferfish.height,
-        pufferfish.width
-      );
-    });
-
-    // draw() wird immer wieder aufgerufen
-    
-    let self = this;   //weil man hier eine funktion aufruft kennt dise this nicht, weswegen man diese mit self definieren muss
+    let self = this; //weil man hier eine funktion aufruft kennt dise this nicht, weswegen man diese mit self definieren muss
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  addObjectsToMap(objects) {
+    objects.forEach((o) => {
+      this.addToMap(o);
+    });
+  }
+
+  addToMap(mo) {
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.height, mo.width);
   }
 }

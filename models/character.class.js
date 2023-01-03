@@ -15,7 +15,7 @@ class Character extends MoveableObject {
     ];
 
     world;
-
+    swimming_audio = new Audio('audio/bubbling-water.wav');
 
     constructor() {
         super().loadImage('img/1.Sharkie/1.IDLE/1.png');
@@ -28,17 +28,20 @@ class Character extends MoveableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            this.swimming_audio.pause();
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
+                this.swimming_audio.play();
             };
 
-            if (this.world.keyboard.LEFT) {
+            if (this.world.keyboard.LEFT && this.x > -720) {
                 this.x -= this.speed;
                 this.otherDirection = true;
+                this.swimming_audio.play();
             }
 
-            this.world.camera_x = -this.x;
+            this.world.camera_x = -this.x + 50;
 
         }, 1000 / 60);
 
@@ -47,11 +50,8 @@ class Character extends MoveableObject {
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
-
-                let i = this.currentImage % this.IMAGES_SWIMMING.length;
-                let path = this.IMAGES_SWIMMING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_SWIMMING);
+             
             }
         }, 50);
     }

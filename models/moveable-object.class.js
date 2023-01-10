@@ -45,18 +45,18 @@ class MoveableObject {
         }
     }
 
-    
-    isColliding (mo) {
+
+    isColliding(mo) {
         return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height            
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
     }
 
 
     hit() {
         this.energy -= 10;
-        if(this.energy < 0) {
+        if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
@@ -70,7 +70,7 @@ class MoveableObject {
     }
 
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
 
@@ -81,7 +81,6 @@ class MoveableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
-
     }
 
     playAnimation(images) {
@@ -92,13 +91,10 @@ class MoveableObject {
     }
 
     moveRight() {
-        console.log('moving right');
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
-
+        this.x -= this.speed;
     }
 }

@@ -67,13 +67,13 @@ class Character extends MoveableObject {
         setInterval(() => {
             this.swimming_audio.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.swimming_audio.play();
+               this.moveRight();
+               this.otherDirection = false;
+               this.swimming_audio.play();
             };
 
             if (this.world.keyboard.LEFT && this.x > -720) {
-                this.x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
                 this.swimming_audio.play();
             }
